@@ -72,11 +72,42 @@ module.exports = angular.module('request', [])
     }
 
     function pinList () {
+      var url = saleUrlBase + '/pinned';
 
+      return $http({
+        method: 'GET',
+        url : url
+      }).
+      success(function (resp, status, headers, config) {
+        $log.debug(resp.sales);
+        return resp.sales;
+      }).
+      error(function (error, status, headers, config) {
+        $log.debug(error);
+
+        if (status === 403) {
+          $location.path('/register');
+        }
+
+        return error;
+      });
     }
 
     function pinSale (saleKey) {
+      var url = saleUrlBase + '/' + saleKey + '/pin';
 
+      return $http({
+        method: 'GET',
+        url : url
+      }).
+      success(function (resp, status, headers, config) {
+        $log.debug(resp);
+        return resp;
+      }).
+      error(function (error, status, headers, config) {
+        $log.debug(error);
+        return error;
+      });
     }
 
     return {

@@ -8,7 +8,13 @@ var saleController = function saleController ($scope, apiRequest) {
   // $scope.sale made avalible by storeController scope
 
   $scope.pinIt = function pinIt (ev) {
-    alert('Impliment pin method!');
+
+    apiRequest.pinSale(this.sale.sale_key).then(
+      function successFn (saleResp) {
+        alert('Success! Added ' + saleResp.data.name + ' to your pin list!');
+      }, function errorFn (error) {
+        // TODO: Add error handling.
+      });
   };
 };
 
